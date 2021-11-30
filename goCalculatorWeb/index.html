@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>SampleAppForTesting</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            $(function()
+            {
+            $("#button_calculate").click(function(e){
+
+                var url ="http://localhost:1234/calculate"
+                var left = parseInt($("#leftNumber").val());
+                var right = parseInt($("#rightNumber").val());
+                var op = $("#operator").val();
+                
+                ($.post(url, JSON.stringify({"leftNumber":left, "rightNumber":right, "operator":op}),"json").done(function(data){
+                    var obj = JSON.parse(JSON.stringify(data))
+                    $("#result").val(obj.value);
+                }))
+            })
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Simple Calculator</h1>
+        <input type="text" size="4" id="leftNumber"/>
+        <select id="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" size="4" id="rightNumber"/>
+        =
+        <input type="text" size="8" id="result" readonly="true"/>
+        <br>
+        <br>
+        <button id="button_calculate">Calculate</button>
+    </body>
+</html>
+
